@@ -1,9 +1,188 @@
 # Health Tracker Bot
 
-Telegram-бот для отслеживания питания, тренировок и показателей здоровья.
-Финальный проект по курсу Python.
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.9+-blue?logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/telegram-bot-2CA5E0?logo=telegram">
+  <img src="https://img.shields.io/badge/AI-Gemini_Vision-4285F4?logo=google">
+  <img src="https://img.shields.io/badge/database-SQLite-003B57?logo=sqlite">
+  <img src="https://img.shields.io/badge/deploy-Docker-2496ED?logo=docker">
+  <img src="https://img.shields.io/badge/license-MIT-green">
+</p>
 
-## О проекте
+<p align="center">
+  <a href="#english">English</a> · <a href="#russian">Русский</a>
+</p>
+
+---
+
+<a name="english"></a>
+
+## Overview
+
+**Health Tracker Bot** is a Telegram bot for tracking nutrition, workouts, and health metrics.
+Final project for the Python programming course.
+
+The bot lets you keep a health diary right in Telegram: counts calories, logs workouts, and tracks metrics (weight, blood pressure, lab results).
+Photograph your meal — the bot recognizes the dish and calculates CJPF (calories, proteins, fats, carbs).
+Weekly and monthly Excel reports with charts are generated automatically.
+
+## Features
+
+- **Nutrition** — photo recognition via Gemini Vision, manual entry, CJPF calculation
+- **Workouts** — workout log, daily check-in, progress analysis
+- **Health** — metrics tracking (weight, blood pressure, heart rate), blood test import via photo
+- **Reminders** — meals, supplements, workouts, end-of-day summary
+- **Reports** — weekly and monthly Excel spreadsheets with charts
+- **Onboarding** — profile setup, calorie target calculation (Mifflin-St Jeor formula)
+
+## Tech Stack
+
+- **Python 3.9+**
+- [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) — Telegram Bot API
+- **SQLAlchemy + SQLite** — data storage
+- **Alembic** — database migrations
+- **Gemini Vision API** — food and lab result recognition
+- **DeepSeek API** — personalized recommendations (optional)
+- **openpyxl** — Excel report generation
+- **Docker** — containerization
+
+## Quick Start
+
+### Requirements
+- Python 3.9+
+- Telegram bot token (create via @BotFather)
+- Gemini API key (Google AI Studio — free tier available)
+
+### Installation
+
+```bash
+git clone https://github.com/ambartsumov/health-tracker-bot.git
+cd health-tracker-bot
+
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+### Configuration
+
+```bash
+copy .env.example .env   # Windows
+cp .env.example .env     # Linux/Mac
+```
+
+Edit `.env` and fill in:
+
+```env
+TELEGRAM_BOT_TOKEN=your_token
+GEMINI_API_KEY=your_key
+```
+
+### Run
+
+```bash
+# Initialize database
+python database/migrations.py
+
+# Start the bot
+python bot.py
+```
+
+### Docker
+
+```bash
+docker-compose up -d
+```
+
+## Project Structure
+
+```
+health-tracker-bot/
+├── bot.py                  # Entry point, Telegram handlers
+├── config.py               # Configuration from .env
+├── requirements.txt
+├── database/
+│   ├── models.py           # ORM models (SQLAlchemy)
+│   ├── manager.py          # CRUD operations
+│   └── migrations.py       # Migration script
+├── modules/
+│   ├── onboarding.py       # New user onboarding
+│   ├── profile.py          # User profile
+│   ├── nutrition/          # Nutrition tracking
+│   ├── training/           # Workout tracking
+│   ├── health/             # Health metrics
+│   ├── reminders/          # Reminders
+│   ├── analytics/          # Excel reports
+│   └── integrations/       # External APIs
+├── utils/
+│   ├── image_processor.py  # Photo processing
+│   ├── security.py         # Data encryption
+│   ├── rate_limiter.py     # Request limiting
+│   └── logger.py
+├── tests/
+└── data/                   # User data, reports
+```
+
+## Bot Commands
+
+| Command | Description |
+|---------|-------------|
+| `/start` | Start / welcome message |
+| `/help` | Help |
+| `/profile` | Profile and statistics |
+| `/settings` | Settings |
+| `/today` | Today's summary |
+| `/week` | Weekly summary |
+| `/report` | Generate Excel report |
+| `/health` | Enter health metrics |
+| `/cancel` | Cancel current action |
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TELEGRAM_BOT_TOKEN` | Yes | Bot token |
+| `GEMINI_API_KEY` | Yes | Gemini key (photo recognition) |
+| `DEEPSEEK_API_KEY` | No | DeepSeek key (recommendations) |
+| `DATABASE_URL` | No | DB URL (default: SQLite) |
+| `TIMEZONE` | No | Timezone (default: Europe/Moscow) |
+| `ENCRYPTION_PASSWORD` | No | Data encryption password |
+
+## Testing
+
+```bash
+pytest
+pytest --cov=.
+```
+
+## Security
+
+- Sensitive data encryption (Fernet, PBKDF2)
+- Input sanitization
+- Rate limiting
+- Action audit log
+
+## License
+
+MIT License — see [LICENSE](LICENSE)
+
+## Author
+
+Ambartsumov Vyacheslav — [GitHub](https://github.com/ambartsumov)
+
+---
+---
+
+<a name="russian"></a>
+
+## Описание
+
+**Health Tracker Bot** — Telegram-бот для отслеживания питания, тренировок и показателей здоровья.
+Финальный проект по курсу Python.
 
 Бот помогает вести дневник здоровья прямо в Telegram: считает калории, фиксирует тренировки, отслеживает метрики (вес, давление, анализы крови). Можно сфотографировать еду — бот распознает блюдо и посчитает КБЖУ. В конце недели/месяца генерируется Excel-отчёт с графиками.
 
@@ -20,14 +199,14 @@ Telegram-бот для отслеживания питания, трениров
 
 ## Стек
 
-- Python 3.9+
+- **Python 3.9+**
 - [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) — Telegram Bot API
-- SQLAlchemy + SQLite — хранение данных
-- Alembic — миграции БД
-- Gemini Vision API — распознавание еды и анализов
-- DeepSeek API — персональные рекомендации (опционально)
-- openpyxl — генерация Excel-отчётов
-- Docker — контейнеризация
+- **SQLAlchemy + SQLite** — хранение данных
+- **Alembic** — миграции БД
+- **Gemini Vision API** — распознавание еды и анализов
+- **DeepSeek API** — персональные рекомендации (опционально)
+- **openpyxl** — генерация Excel-отчётов
+- **Docker** — контейнеризация
 
 ## Быстрый старт
 
@@ -39,7 +218,7 @@ Telegram-бот для отслеживания питания, трениров
 ### Установка
 
 ```bash
-git clone https://github.com/qwert2009/health-tracker-bot.git
+git clone https://github.com/ambartsumov/health-tracker-bot.git
 cd health-tracker-bot
 
 python -m venv venv
@@ -149,10 +328,10 @@ pytest --cov=.
 - Rate limiting
 - Аудит-лог действий
 
-## Деплой
-
-Подробнее в [DEPLOYMENT.md](DEPLOYMENT.md) — инструкция для деплоя на Linux-сервер (systemd) и Docker.
-
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE).
+MIT License — см. [LICENSE](LICENSE)
+
+## Автор
+
+Амбарцумов Вячеслав — [GitHub](https://github.com/ambartsumov)
