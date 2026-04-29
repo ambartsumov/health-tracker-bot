@@ -1,0 +1,36 @@
+# Systemd service file for Health Telegram Bot
+# For Linux server deployment (Oracle Cloud, VPS, etc.)
+
+[Unit]
+Description=Health Telegram Bot
+Documentation=https://github.com/yourusername/health-bot
+After=network.target
+
+[Service]
+Type=simple
+User=healthbot
+Group=healthbot
+WorkingDirectory=/opt/health-bot
+Environment="PATH=/opt/health-bot/venv/bin"
+ExecStart=/opt/health-bot/venv/bin/python bot.py
+Restart=always
+RestartSec=10
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/health-bot/data
+
+# Resource limits
+LimitNOFILE=65535
+LimitNPROC=4096
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=health-bot
+
+[Install]
+WantedBy=multi-user.target
