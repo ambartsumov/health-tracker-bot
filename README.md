@@ -1,4 +1,4 @@
-# Health Tracker Bot
+﻿# Health Tracker Bot
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-3.9+-blue?logo=python&logoColor=white">
@@ -20,7 +20,7 @@
 ## Overview
 
 **Health Tracker Bot** is a Telegram bot for tracking nutrition, workouts, and health metrics.
-Final project for the Python programming course.
+A personal project for health, nutrition and fitness tracking.
 
 The bot lets you keep a health diary right in Telegram: counts calories, logs workouts, and tracks metrics (weight, blood pressure, lab results).
 Photograph your meal — the bot recognizes the dish and calculates CJPF (calories, proteins, fats, carbs).
@@ -182,7 +182,7 @@ Ambartsumov Vyacheslav — [GitHub](https://github.com/ambartsumov)
 ## Описание
 
 **Health Tracker Bot** — Telegram-бот для отслеживания питания, тренировок и показателей здоровья.
-Финальный проект по курсу Python.
+ФСамостоятельный проект: полноценный инструмент для трекинга здоровья.
 
 Бот помогает вести дневник здоровья прямо в Telegram: считает калории, фиксирует тренировки, отслеживает метрики (вес, давление, анализы крови). Можно сфотографировать еду — бот распознает блюдо и посчитает КБЖУ. В конце недели/месяца генерируется Excel-отчёт с графиками.
 
